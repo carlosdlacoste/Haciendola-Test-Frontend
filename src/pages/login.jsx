@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
+import { useAuth } from '../store/authContext';
 
 export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const {handleToken} = useAuth();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -20,7 +22,7 @@ export const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('token', data.token);
+                handleToken(data.token);
                 navigate('/');
             } else {
                 setError('Credenciales inválidas. Por favor, inténtalo de nuevo.');
