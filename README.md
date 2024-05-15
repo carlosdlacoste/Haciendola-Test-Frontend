@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Frontend de la Aplicación de Gestión de Usuarios y Productos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este es el frontend de una aplicación de gestión de usuarios y productos, desarrollado en ReactJS y Bootstrap. Proporciona una interfaz de usuario para la autenticacion de usuarios y manejo de productos.
+## Requisitos
 
-## Available Scripts
+- React.js
+- Bootstrap
+- react-dom
+- react-router-dom
 
-In the project directory, you can run:
 
-### `npm start`
+## Instalación
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clona este repositorio en tu máquina local:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    [git clone https://github.com/carlosdlacoste/Haciendola-Test-Backend.git](https://github.com/carlosdlacoste/Haciendola-Test-Frontend.git)
 
-### `npm test`
+2. Instala las dependencias del proyecto:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm install
 
-### `npm run build`
+## Configuración de la Base de Datos
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Crea una base de datos PostgreSQL en tu servidor local o en la nube.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Abre el archivo `package.json` y configura los parámetros de conexión a tu backend.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```json
+ "proxy": "http://localhost:5000",
+ ```
 
-### `npm run eject`
+## Ejecución del Servidor
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Ejecuta el siguiente comando para iniciar el servidor:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    npm run start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    El servidor se ejecutará en http://localhost:3000 por defecto.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Creacion de Usuarios
+1. Debes llenar la tabla Users directamente desde un sercicio como Postman o similar a traves de la siguiente ruta y siguiendo el modelo propuesto de Users en el backend
 
-## Learn More
+    http://localhost:5000/api/users
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Autenticación de Usuarios
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Ingresa las credenciales de tu usuario, esto generará un token y podras usar la app sin problemas en caso contrario no podras acceder a las distintas vistas del frontend
 
-### Code Splitting
+## CRUD Productos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Crear Productos
 
-### Analyzing the Bundle Size
+    Accede al hacer click al boton agregar producto y te redirigirá al form correspondiente y una vez creado veras el cambio reflejado en la tabla de productos en la vista Products
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Leer Productos
 
-### Making a Progressive Web App
+    Una vez autenticado el usuario podras ver tu tabla de productos inicial la cual representa la data que proviene del archivo Excel
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. Modificar Producto
 
-### Advanced Configuration
+    Puedes actualizar el producto al hacer click en el registro de la tabla correspondiente y esto te llevara a una nueva vista con un form que contiene unicamente la informacion de dicho producto. Alli se pueden modificar uno o mas campos y luego al hacer click en el boton Guardar Cambios, dicha informacion se actualiza y te redirige nuevamente a la tabla Productos con la informacion actualizada, ahora aparecera como ultimo registro de la tabla.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+4. Eliminar Producto
 
-### Deployment
+    Puedes eliminar un producto en la misma vista del formulario de actualizacion, donde encontraras un boton eliminar y al hacer click te redirigira a la tabla productos nuevamente, pero el registro eliminado desaparecerá.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
