@@ -23,7 +23,7 @@ export const Login = () => {
             if (response.ok) {
                 const data = await response.json();
                 handleToken(data.token);
-                navigate('/');
+                navigate('/products');
             } else {
                 setError('Credenciales inválidas. Por favor, inténtalo de nuevo.');
             }
