@@ -4,6 +4,7 @@ import { Home } from "./pages/home.jsx";
 import { Navbar } from "./components/navbar.jsx";
 import { Products } from "./pages/products.jsx";
 import { ProductDetails } from "./pages/productDetails.jsx";
+import { NewProduct } from "./pages/newProduct.jsx";
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                       <Route element={<Login />} path="/login" />
                       <Route element={<Products />} path="/products" />
                       <Route element={<ProductDetails />} path="/products/:id" />
+                      <Route element={<NewProduct />} path="/products/new" />
                       {/* <Route element={<Signup />} path="/signup" />
                       <Route element={<Profile />} path="/profile/:user_id" />
                       <Route element={<LessonForm />} path="/lessons" />
