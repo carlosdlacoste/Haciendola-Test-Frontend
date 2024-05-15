@@ -1,9 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/authContext';
 
 export const Navbar = () => {
     const { token, removeToken } = useAuth();
+    const navigate = useNavigate()
+
+    const handleLogOut = () => {
+        removeToken()
+        navigate('/login')
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-success">
             <div className="container d-flex align-items-center">
@@ -12,7 +19,7 @@ export const Navbar = () => {
                     <li className="nav-item">
                         {token ?
                         <>
-                            <button className='btn btn-danger' onClick={removeToken}>Log Out</button>
+                            <button className='btn btn-danger' onClick={handleLogOut}>Log Out</button>
                         </>
                         :
                         <>
