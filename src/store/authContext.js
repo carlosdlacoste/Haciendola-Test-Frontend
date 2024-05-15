@@ -5,16 +5,16 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(sessionStorage.getItem('token'));
 
     const handleToken = (newToken) => {
         setToken(newToken);
-        localStorage.setItem('token', newToken);
+        sessionStorage.setItem('token', newToken);
     };
 
     const removeToken = () => {
         setToken(null);
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
     };
 
     return (
