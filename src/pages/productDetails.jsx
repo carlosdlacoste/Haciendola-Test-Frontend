@@ -16,6 +16,36 @@ export const ProductDetails = () =>{
         compare_price: '',
         barcode: ''
     });
+
+    useEffect(() => {
+        // Función para obtener los detalles del producto desde el backend
+        const getProduct = async () => {
+            try {
+                const response = await fetch(`/api/products/${id}`);
+                if (response.ok) {
+                const data = await response.json();
+                setProduct(data);
+                setFormData({
+                    handle: data.handle,
+                    title: data.title,
+                    descripcion: data.descripcion,
+                    sku: data.sku,
+                    grams: data.grams,
+                    stock: data.stock,
+                    price: data.price,
+                    compare_price: data.compare_price,
+                    barcode: data.barcode
+                })
+                } else {
+                console.error('Error al obtener los detalles del producto:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al obtener los detalles del producto:', error);
+            }
+            };
+
+            getProduct();
+    }, [id]);
     return (
         <>
             <div className="container my-5">
