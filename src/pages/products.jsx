@@ -4,6 +4,7 @@ import { useAuth } from '../store/authContext';
 
 export const Products = () => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const { token } = useAuth()
 
@@ -13,10 +14,31 @@ export const Products = () => {
         try {
             const response = await fetch('/api/products');
             if (response.ok) {
-            const data = await response.json();
-            setProducts(data);
+                const data = await response.json();
+                if(data.length === 0) {
+                    // Si la respuesta es una lista vacía de productos, hacer la solicitud POST para cargar datos desde el archivo Excel
+                    fetch('/api/products/loadFromExcel', {
+                    method: 'POST'
+                })
+                    .then(response => response.json())
+                    .then(newData => {
+                    // Actualizar el estado de productos con los datos nuevos
+                    setProducts(newData);
+                    setLoading(false)
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 950);
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar datos desde Excel:', error);
+                    });
+                }
+                else {
+                    setProducts(data)
+                    setLoading(false)
+                }
             } else {
-            console.error('Error al obtener los productos:', response.statusText);
+                console.error('Error al obtener los productos:', response.statusText);
             }
         } catch (error) {
             console.error('Error al obtener los productos:', error);
@@ -25,6 +47,11 @@ export const Products = () => {
 
         getProducts();
     }, []);
+
+
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
 
     return (
         <>
@@ -51,7 +78,7 @@ export const Products = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {products.map(product => (
+                        {products.length > 0 && products.map(product => (
                             <tr key={product.id} style={{cursor: 'pointer'}} onClick={() => navigate(`/products/${product.id}`)}>
                                 <td>{product.id}</td>
                                 <td>{product.handle}</td>
