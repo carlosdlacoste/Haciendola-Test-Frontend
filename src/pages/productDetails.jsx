@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export const ProductDetails = () =>{
     const { id } = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState();
     const [editing, setEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -46,6 +47,61 @@ export const ProductDetails = () =>{
 
             getProduct();
     }, [id]);
+
+    const handleEdit = () => {
+        setEditing(true);
+    }
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`/api/products/${id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                setEditing(false);
+                // Actualizar los detalles del producto después de la edición
+                setProduct(prevProduct => ({
+                    ...prevProduct,
+                    handle: formData.handle,
+                    title: formData.title,
+                    descripcion: formData.descripcion,
+                    sku: formData.sku,
+                    grams: formData.grams,
+                    stock: formData.stock,
+                    price: formData.price,
+                    compare_price: formData.compare_price,
+                    barcode: formData.barcode
+                }));
+                navigate('/products')
+            } else {
+                console.error('Error al editar el producto:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error al editar el producto:', error);
+        }
+    };
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`/api/products/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                navigate('/products'); // Redirigir a la página de productos después de eliminar
+            } else {
+                console.error('Error al eliminar el producto:', response.statusText);
+            }
+            } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+            }
+        };
+
     return (
         <>
             <div className="container my-5">
@@ -88,8 +144,8 @@ export const ProductDetails = () =>{
                         <input type="text" className="form-control" id="username" placeholder="Barcode" value={formData.barcode || ''} onChange={(e) => setFormData({...formData, barcode: e.target.value})} />
                     </div>
                     <div className='d-flex justify-content-around'>
-                        <button type="button" className="btn btn-primary">Guardar cambios</button>
-                        <button type="button" className="btn btn-danger">Eliminar</button>
+                        <button type="button" className="btn btn-primary" onClick={(e) => handleSave(e)}>Guardar cambios</button>
+                        <button type="button" className="btn btn-danger" onClick={(e) => handleDelete(e)}>Eliminar</button>
                     </div>
                 </div>
             </div>
