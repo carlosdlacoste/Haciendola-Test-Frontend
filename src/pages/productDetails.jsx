@@ -7,7 +7,6 @@ export const ProductDetails = () =>{
     const navigate = useNavigate();
     const { token } = useAuth()
     const [product, setProduct] = useState();
-    const [editing, setEditing] = useState(false);
     const [formData, setFormData] = useState({
         handle: '',
         title: '',
@@ -50,9 +49,6 @@ export const ProductDetails = () =>{
             getProduct();
     }, [id]);
 
-    const handleEdit = () => {
-        setEditing(true);
-    }
 
     const handleSave = async (e) => {
         e.preventDefault();
@@ -65,7 +61,6 @@ export const ProductDetails = () =>{
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
-                setEditing(false);
                 // Actualizar los detalles del producto después de la edición
                 setProduct(prevProduct => ({
                     ...prevProduct,
