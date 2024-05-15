@@ -19,12 +19,7 @@ function App() {
                       <Route element={<Products />} path="/products" />
                       <Route element={<ProductDetails />} path="/products/:id" />
                       <Route element={<NewProduct />} path="/products/new" />
-                      {/* <Route element={<Signup />} path="/signup" />
-                      <Route element={<Profile />} path="/profile/:user_id" />
-                      <Route element={<LessonForm />} path="/lessons" />
-                      <Route element={<Canchas />} path="/canchas" />
-                      <Route element={<Reservations />} path="/reservations/:id" />
-                      <Route element={<ExploreProfile />} path="/exploreProfile/:user_id" /> */}
+                      {/* <Route element={<Signup />} path="/signup" /> */}
                       <Route element={<h1>Not found!</h1>} />
                   </Routes>
               </div>
