@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Products = () => {
     const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Función para obtener los productos desde el backend
@@ -42,7 +44,7 @@ export const Products = () => {
             </thead>
             <tbody>
             {products.map(product => (
-                <tr key={product.id}>
+                <tr key={product.id} style={{cursor: 'pointer'}} onClick={() => navigate(`/products/${product.id}`)}>
                     <td>{product.id}</td>
                     <td>{product.handle}</td>
                     <td>{product.title}</td>
